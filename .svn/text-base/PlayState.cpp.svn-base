@@ -1,0 +1,348 @@
+
+#include "PlayState.h"
+
+PlayState PlayState::mPlayState;
+
+
+PlayState::PlayState()
+{
+}
+
+PlayState::~PlayState()
+{
+}
+
+void PlayState::Init( MainGame *Game )
+{
+
+    mBgWhite.Create(10, 10, sf::Color(255, 255, 255));
+    mBgGray.Create(5, Game->mAppWindow.GetHeight(), sf::Color(80, 80, 80));
+
+    mPad1.SetImage(mBgWhite);
+	mPad1.SetScaleY(4.f);
+	mPad1.SetPosition( (float) 0,
+					  (float)( ( Game->mAppWindow.GetHeight() - mPad1.GetSize().y ) / 2 ) );
+
+	mPad2.SetImage(mBgWhite);
+	mPad2.SetScaleY(4.f);
+	mPad2.SetPosition( (float)( Game->mAppWindow.GetWidth() - mPad2.GetSize().x ),
+					  (float)( ( Game->mAppWindow.GetHeight() - mPad2.GetSize().y ) / 2 ) );
+
+	mBall.SetImage(mBgWhite);
+	mBall.SetScale(.5f, .5f);
+	mBall.SetPosition( (float)( ( Game->mAppWindow.GetWidth() - mBall.GetSize().x ) / 2 ),
+					  (float)( ( Game->mAppWindow.GetHeight() - mBall.GetSize().y ) / 2 ) );
+
+	mSeparator.SetImage(mBgGray);
+	mSeparator.SetPosition( (float) ( ( Game->mAppWindow.GetWidth () - mSeparator.GetSize().x ) / 2),
+		(float) ( 0 ) );
+
+
+    // scores
+
+    mPadSpeed = 5.0f;
+    mBallSpeed = 2.5f;
+
+    if( sf::Randomizer::Random(0, 1) == 0 ) {
+		mBallDirectionX = -1;
+	} else {
+		mBallDirectionX = 1;
+	}
+
+    if( sf::Randomizer::Random(0, 1) == 0 ) {
+		mBallDirectionY = -1;
+	} else {
+		mBallDirectionY = 1;
+	}
+
+    mBallAlive = 1;
+    mPad1Score = 0;
+    mPad2Score = 0;
+
+
+    if( !mBgPlayerOneWins.LoadFromFile("data\\gfx\\playeronewins.jpg"));
+    {
+        // error
+    }
+    mBgPlayerOneWins.CreateMaskFromColor(sf::Color(255, 0, 255), 0);
+    mPlayerOneSprite.SetImage(mBgPlayerOneWins);
+
+    if( !mBgPlayerTwoWins.LoadFromFile("data\\gfx\\playertwowins.jpg"));
+    {
+        // error
+    }
+
+    mBgPlayerTwoWins.CreateMaskFromColor(sf::Color(255, 0, 255), 0);
+    mPlayerTwoSprite.SetImage(mBgPlayerTwoWins);
+
+    Game->mAppWindow.ShowMouseCursor(false);
+
+}
+
+void PlayState::Cleanup()
+{
+}
+
+void PlayState::Pause()
+{
+}
+void PlayState::Resume()
+{
+}
+
+void PlayState::OnEvent(MainGame *Game, sf::Event Event)
+{
+    switch(Event.Type)
+	{
+		case sf::Event::Closed:
+			Game->Quit();
+		break;
+		case sf::Event::KeyPressed:
+			switch(Event.Key.Code)
+			{
+				case sf::Key::Escape:
+					Game->Quit();
+				break;
+				default: break;
+			}
+		break;
+		default: break;
+	}
+}
+
+void PlayState::OnUpdate(MainGame *Game)
+{
+    // Update
+    if( mBallAlive == 1)
+    {
+        if( ( Game->mAppWindow.GetInput().IsKeyDown(sf::Key::Down) ) && ( ( mPad1.GetPosition().y + mPad1.GetSize().y ) <= Game->mAppWindow.GetHeight() ) )
+            mPad1.Move(0 , mPadSpeed );
+        if( ( Game->mAppWindow.GetInput().IsKeyDown(sf::Key::Up) ) && ( mPad1.GetPosition().y >= 0 ) )
+            mPad1.Move(0,  -mPadSpeed );
+        if( ( Game->mAppWindow.GetInput().IsKeyDown(sf::Key::S) ) && ( ( mPad2.GetPosition().y + mPad2.GetSize().y ) <= Game->mAppWindow.GetHeight() ) )
+            mPad2.Move(0,  mPadSpeed );
+        if( ( Game->mAppWindow.GetInput().IsKeyDown(sf::Key::W) ) && ( mPad2.GetPosition().y >= 0 ) )
+            mPad2.Move(0,  -mPadSpeed );
+
+        mBall.Move( mBallSpeed * mBallDirectionX , mBallSpeed * mBallDirectionY );
+
+        // se bate na parede = golo, e bola para e 1 ponto para pad1
+        if( ( mBall.GetPosition().x + mBall.GetSize().x ) >= Game->mAppWindow.GetWidth() )
+        {
+            // play sound
+            mBallAlive = 0;
+
+            // score 1 pad2
+            mPad1Score++;
+
+            //balldirectionX *=-1;
+        }
+
+        // se bate na parede = golo, e bola para e 1 ponto para pad2
+        if( mBall.GetPosition().x <= 0 )
+        {
+            // play sound
+            mBallAlive = 0;
+            // score 1 pad2
+            mPad2Score++;
+
+        }
+
+        // colision with up and down walls.
+        if( ( ( mBall.GetPosition().y + mBall.GetSize().y ) >= Game->mAppWindow.GetHeight() ) || ( mBall.GetPosition().y <= 0 ) )
+        {
+            mBallDirectionY = -mBallDirectionY;
+        }
+
+        if( ( mBall.GetPosition().x < ( mPad1.GetPosition().x + mPad1.GetSize().x - 1 ) ) ||
+            ( ( mBall.GetPosition().x + mBall.GetSize().x ) > ( mPad2.GetPosition().x + 1 ) ) )
+        {
+            if( mBallDirectionX < 0 )
+            {
+                if( check_collision(mPad1, mBall) )
+                {
+                    mBallDirectionX *=-1;
+                }
+            }
+            else
+            {
+                if( check_collision(mBall, mPad2) )
+                {
+                    mBallDirectionX *=-1;
+                }
+            }
+        }
+
+/*
+        if( mBallDirectionX < 0 )
+        {
+            if( check_collision(Pad1, Ball) )
+            {
+                mBallDirectionX *=-1;
+            }
+        }
+        else
+        {
+            if( check_collision(Ball, Pad2) )
+            {
+                mBallDirectionX *=-1;
+            }
+        }
+*/
+
+    }
+    else
+    {
+        mClock.Reset();
+
+        sf::Sleep(1);
+
+        mBallAlive = 1;
+
+        mPad1.SetPosition( (float) 0,
+                          (float)( ( Game->mAppWindow.GetHeight() - mPad1.GetSize().y ) / 2 ) );
+
+        mPad2.SetPosition( (float)( Game->mAppWindow.GetWidth() - mPad2.GetSize().x ),
+                          (float)( ( Game->mAppWindow.GetHeight() - mPad2.GetSize().y ) / 2 ) );
+
+        mBall.SetPosition( (float)( ( Game->mAppWindow.GetWidth() - mBall.GetSize().x ) / 2 ),
+                          (float)( ( Game->mAppWindow.GetHeight() - mBall.GetSize().y ) / 2 ) );
+
+        if( sf::Randomizer::Random(0, 1) == 0 ) {
+            mBallDirectionX = -1;
+        } else {
+            mBallDirectionX = 1;
+        }
+
+        if( sf::Randomizer::Random(0, 1) == 0 ) {
+            mBallDirectionY = -1;
+        } else {
+            mBallDirectionY = 1;
+        }
+
+    }
+
+    if( mPad1Score == 3 ) {
+        showWinner(Game, PLAYERONE);
+
+        mPad1Score = 0;
+        mPad2Score = 0;
+
+
+        mClock.Reset();
+
+        mBallAlive = 1;
+
+    }
+    if( mPad2Score == 3 ) {
+        showWinner(Game, PLAYERTWO);
+
+        mPad1Score = 0;
+        mPad2Score = 0;
+
+        mClock.Reset();
+
+        mBallAlive = 1;
+
+
+    }
+}
+
+void PlayState::Draw(sf::RenderWindow &Window)
+{
+    Window.Clear(sf::Color(30, 30, 30));
+
+    // Draw
+    Window.Draw(mSeparator);
+
+    Window.Draw(mPad1);
+    Window.Draw(mPad2);
+    Window.Draw(mBall);
+
+    // Finally, display the rendered frame on screen / refresh...
+    Window.Display();
+}
+
+PlayState *PlayState::Instance()
+{
+    return &mPlayState;
+}
+
+void PlayState::showWinner( MainGame *Game , Winner win )
+{
+	float posX = sf::Randomizer::Random(0.0f, 200.0f);
+	float posY = sf::Randomizer::Random(50.0f, 150.0f);
+	float rotation = sf::Randomizer::Random(-50.0f, 50.0f);
+
+	sf::Clock clock;
+	clock.Reset();
+
+	while(1) {
+		// if 3 second have passed cia!
+		if( clock.GetElapsedTime() > 2.5f )
+			break;
+
+		Game->mAppWindow.Clear();
+
+		if( win == PLAYERONE )
+		{
+		    mPlayerOneSprite.SetPosition(posX, posY);
+		    mPlayerOneSprite.SetRotation(rotation);
+			Game->mAppWindow.Draw(mPlayerOneSprite);
+		}
+
+		if( win == PLAYERTWO )
+		{
+		    mPlayerTwoSprite.SetPosition(posX, posY);
+		    mPlayerTwoSprite.SetRotation(rotation);
+			Game->mAppWindow.Draw(mPlayerTwoSprite);
+		}
+
+        // Finally, display the rendered frame on screen / refresh...
+        Game->mAppWindow.Display();
+	}
+}
+
+bool PlayState::check_collision( sf::Sprite A, sf::Sprite B )
+{
+	//The sides of the rectangles
+	float leftA, leftB;
+	float rightA, rightB;
+	float topA, topB;
+	float bottomA, bottomB;
+
+	//Calculate the sides of rect A
+	leftA = A.GetPosition().x;
+	rightA = leftA + A.GetSize().x;
+	topA = A.GetPosition().y;
+	bottomA = topA + A.GetSize().y;
+
+	//Calculate the sides of rect B
+	leftB = B.GetPosition().x;
+	rightB = leftB + B.GetSize().x;
+	topB = B.GetPosition().y;
+	bottomB = topB + B.GetSize().y;
+
+	//If any of the sides from A are outside of B
+	if( bottomA <= topB )
+		return false;
+
+	if( topA >= bottomB )
+		return false;
+
+	if( rightA <= leftB )
+		return false;
+
+	if( leftA >= rightB )
+		return false;
+
+	//If none of the sides from A are outside B
+	return true;
+}
+
+
+
+
+
+
+

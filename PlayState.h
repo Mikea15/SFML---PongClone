@@ -1,0 +1,56 @@
+
+#ifndef _PLAYSTATE_H_
+#define _PLAYSTATE_H_
+
+#include "GameState.h"
+
+class PlayState : public GameState
+{
+	public:
+		PlayState();
+		virtual ~PlayState();
+
+		void Init( MainGame *Game );
+		void Cleanup();
+
+		void Pause();
+		void Resume();
+
+		void OnEvent( MainGame *Game, sf::Event Event );
+		void OnUpdate( MainGame *Game );
+		void Draw( MainGame *Game );
+
+		static PlayState *Instance();
+
+        bool check_collision( sf::Sprite A, sf::Sprite B );
+        void showWinner( MainGame *Game , Winner win );
+
+    private:
+        static PlayState	mPlayState;
+
+    private:
+        sf::Clock           mClock;
+        sf::Image           mBgPlayerOneWins;
+        sf::Image           mBgPlayerTwoWins;
+        sf::Sprite          mPlayerOneSprite;
+        sf::Sprite          mPlayerTwoSprite;
+
+        sf::Image           mBgWhite;
+        sf::Image           mBgGray;
+        sf::Sprite          mPad1, mPad2, mBall, mSeparator;
+
+        // scores
+
+        float               mPadSpeed, mBallSpeed;
+        int                 mBallDirectionX, mBallDirectionY, mBallAlive;
+        int                 mPad1Score, mPad2Score;
+
+        float               mSpeedUp;
+
+        sf::SoundBuffer     mSoundBuffer;
+        sf::Sound           mSoundHit;
+
+};
+
+
+#endif

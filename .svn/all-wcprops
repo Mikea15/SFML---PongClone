@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 21
+/svn/!svn/ver/1/trunk
+END
+PongClone.depend
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/6/trunk/PongClone.depend
+END
+IntroState.h
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/6/trunk/IntroState.h
+END
+PongClone.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/3/trunk/PongClone.cbp
+END
+PlayState.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/6/trunk/PlayState.cpp
+END
+sfml-graphics-d.dll
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/2/trunk/sfml-graphics-d.dll
+END
+GameState.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/6/trunk/GameState.cpp
+END
+PlayState.h
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/5/trunk/PlayState.h
+END
+MainGame.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/6/trunk/MainGame.cpp
+END
+PongClone.layout
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/6/trunk/PongClone.layout
+END
+GameState.h
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/6/trunk/GameState.h
+END
+sfml-window-d.dll
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/2/trunk/sfml-window-d.dll
+END
+constants.h
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/2/trunk/constants.h
+END
+MainGame.h
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/2/trunk/MainGame.h
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/2/trunk/main.cpp
+END
+version.h
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/6/trunk/version.h
+END
+IntroState.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/6/trunk/IntroState.cpp
+END
+sfml-system-d.dll
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/2/trunk/sfml-system-d.dll
+END

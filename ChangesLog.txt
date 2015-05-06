@@ -1,0 +1,10 @@
+01 Agosto 2009
+   released version 0.0.77 of PongClone
+
+     Change log:
+        -Added: added menu, to chose game type
+        -Added: added new play type, vs computer AI
+        -Fixed: error when using strings, error on closing
+        -Added: linking staticaly to prevent error with strings. (to be fixed on sfml 2.0)
+        -New: Added Menu to chose between playing modes
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="GameState.cpp" open="0" top="0" tabpos="11">
+		<Cursor position="487" topLine="16" />
+	</File>
+	<File name="GameState.h" open="0" top="0" tabpos="4">
+		<Cursor position="359" topLine="0" />
+	</File>
+	<File name="IntroState.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="623" topLine="18" />
+	</File>
+	<File name="IntroState.h" open="0" top="0" tabpos="9">
+		<Cursor position="446" topLine="12" />
+	</File>
+	<File name="MainGame.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1064" topLine="24" />
+	</File>
+	<File name="MainGame.h" open="1" top="1" tabpos="2">
+		<Cursor position="46" topLine="0" />
+	</File>
+	<File name="Menu.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1635" topLine="0" />
+	</File>
+	<File name="Menu.h" open="0" top="0" tabpos="8">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="PlayState.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="1160" topLine="44" />
+	</File>
+	<File name="PlayState.h" open="0" top="0" tabpos="7">
+		<Cursor position="1172" topLine="25" />
+	</File>
+	<File name="PlayStateVsAI.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="9150" topLine="0" />
+	</File>
+	<File name="PlayStateVsAI.h" open="0" top="0" tabpos="3">
+		<Cursor position="645" topLine="0" />
+	</File>
+	<File name="constants.h" open="0" top="0" tabpos="9">
+		<Cursor position="89" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="237" topLine="1" />
+	</File>
+	<File name="version.h" open="0" top="0" tabpos="13">
+		<Cursor position="695" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

@@ -1,0 +1,80 @@
+#include "IntroState.h"
+
+// Initialize mIntroState as Static Variable
+IntroState IntroState::mIntroState;
+
+IntroState::IntroState()
+{
+}
+
+IntroState::~IntroState()
+{
+}
+
+void IntroState::Init( MainGame *Game )
+{
+    if( !mBgImg.LoadFromFile("data\\gfx\\intro.jpg"));
+    {
+        // error
+    }
+
+    mBgImg.SetSmooth(false);
+
+    mBgSprite.SetImage(mBgImg);
+}
+
+void IntroState::Cleanup()
+{
+}
+
+void IntroState::Pause()
+{
+}
+
+void IntroState::Resume()
+{
+}
+
+void IntroState::OnEvent(MainGame *Game, sf::Event Event)
+{
+	switch(Event.Type)
+	{
+		case sf::Event::Closed:
+			Game->Quit();
+		break;
+		case sf::Event::KeyPressed:
+			switch(Event.Key.Code)
+			{
+				case sf::Key::Escape:
+					Game->Quit();
+				break;
+				case sf::Key::Return:
+					Game->ChangeState( PlayState::Instance() );
+				break;
+				default: break;
+			}
+		break;
+		default: break;
+	}
+}
+
+void IntroState::OnUpdate(MainGame *Game)
+{
+
+}
+
+void IntroState::Draw(sf::RenderWindow &Window)
+{
+	Window.Clear();
+
+    Window.Draw(mBgSprite);
+
+	Window.Display();
+}
+
+
+IntroState *IntroState::Instance()
+{
+    return &mIntroState;
+}
+

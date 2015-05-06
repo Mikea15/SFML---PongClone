@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1251298525 source:c:\users\michael\documents\programing\c++\sfml\pongclone\maingame.cpp
+	"MainGame.h"
+	"GameState.h"
+
+1251299114 c:\users\michael\documents\programing\c++\sfml\pongclone\maingame.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	"constants.h"
+	<iostream>
+	<string>
+	<vector>
+	<sstream>
+	<fstream>
+
+1251295976 c:\users\michael\documents\programing\c++\sfml\pongclone\gamestate.h
+	"MainGame.h"
+
+1251299147 source:c:\users\michael\documents\programing\c++\sfml\pongclone\main.cpp
+	"MainGame.h"
+	"IntroState.h"
+
+1251296036 source:c:\users\michael\documents\programing\c++\sfml\pongclone\gamestate.cpp
+	"GameState.h"
+
+1251298458 source:c:\users\michael\documents\programing\c++\sfml\pongclone\introstate.cpp
+	"IntroState.h"
+
+1251296104 c:\users\michael\documents\programing\c++\sfml\pongclone\introstate.h
+	"GameState.h"
+	"PlayState.h"
+	"PlayStateVsAI.h"
+	"Menu.h"
+
+1251297735 source:c:\users\michael\documents\programing\c++\sfml\pongclone\playstate.cpp
+	"PlayState.h"
+
+1251296715 c:\users\michael\documents\programing\c++\sfml\pongclone\playstate.h
+	"GameState.h"
+
+1248740861 c:\users\michael\documents\programing\c++\sfml\pongclone\constants.h
+
+1248820464 source:c:\users\michael\documents\programing\c++\sfml\pongclone\resources.rc
+
+1251295989 c:\users\michael\documents\programing\c++\sfml\pongclone\playstatevsai.h
+	"GameState.h"
+
+1248289860 c:\users\michael\documents\programing\c++\sfml\pongclone\menu.h
+	<SFML/Graphics.hpp>
+	<vector>
+	<iostream>
+
+1248530536 source:c:\users\michael\documents\programing\c++\sfml\pongclone\menu.cpp
+	"Menu.h"
+
+1251297820 source:c:\users\michael\documents\programing\c++\sfml\pongclone\playstatevsai.cpp
+	"PlayStateVsAI.h"
+
+1251302699 c:\users\michael\documents\programing\c++\sfml\pongclone\version.h
+
